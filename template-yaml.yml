@@ -1,0 +1,28 @@
+---
+# Métadonnées et configuration globale
+version: "1.0"
+environnement: "production"
+
+# Scalaires
+actif: true
+seuil_tolerance: 4.5
+
+# Listes
+serveurs_cibles:
+  - 192.168.1.10
+  - 192.168.1.11
+
+# Ancres et alias (DRY)
+base_configuration_db: &db_config
+  port: 5432
+  utilisateur: "admin"
+  timeout_ms: 5000
+
+base_de_donnees_primaire:
+  host: "db-primary.local"
+  <<: *db_config
+
+base_de_donnees_secondaire:
+  host: "db-replica.local"
+  <<: *db_config
+...
