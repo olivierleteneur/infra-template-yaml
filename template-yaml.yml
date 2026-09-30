@@ -1,3 +1,4 @@
+%YAML 1.2
 ---
 # Métadonnées et configuration globale
 version: "1.0"
@@ -12,17 +13,19 @@ serveurs_cibles:
   - 192.168.1.10
   - 192.168.1.11
 
-# Ancres et alias (DRY)
-base_configuration_db: &db_config
+# Ancres et alias (DRY), conformes à YAML 1.2.
+# La clé de fusion « << » vient de YAML 1.1 et n'existe plus en 1.2 :
+# on réutilise le bloc entier sous une clé dédiée.
+parametres_db: &parametres_db
   port: 5432
   utilisateur: "admin"
   timeout_ms: 5000
 
 base_de_donnees_primaire:
   host: "db-primary.local"
-  <<: *db_config
+  parametres: *parametres_db
 
 base_de_donnees_secondaire:
   host: "db-replica.local"
-  <<: *db_config
+  parametres: *parametres_db
 ...
